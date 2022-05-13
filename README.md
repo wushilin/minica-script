@@ -3,6 +3,12 @@
 You can create CA with a single command.
 You can issue cert with a single command.
 
+# Customizing password
+By default, the program will generate CA key, CA cert, and CA truststore.
+If you want to customize the CA truststore password, please edit 'PASSWORD' file (if not exist, create one).
+
+By default, this program will generate keystore for certs too. 
+If you want to customize the keystore password, please edit 'PASSWORD' file (if not exist, create one).
 # Creating CA
 ```
 $ perl 01-gen-ca.pl 
@@ -24,6 +30,9 @@ e is 65537 (0x10001)
 ```
 That's it! CA.pem (CA cert), CA.key (CA key) are generated, as well as openssl-ca.conf.
 The keys are not protected for simplicity.
+
+There is also truststore.p12 and truststore.jks, as well as a password file truststore.password are generated.
+
 # Creating cert
 ```
 $ perl 02-gen-cert.pl <commonName> <fqdn1> ... <fqdnN> <ipAddress1> ... <ipAddressN>
