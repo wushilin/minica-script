@@ -11,7 +11,7 @@ if($ans ne "YES!") {
 print("As you wish!\n");
 `rm -rf index.txt*`;
 `rm -rf serial.txt*`;
-&rm("certs", "issued", "CERT_SETTINGS", "SETTINGS", "CA.key", "CA.pem", "openssl-ca.conf");
+&rm("truststore.jks", "truststore.p12", "certs", "issued", "CERT_SETTINGS", "SETTINGS", "CA.key", "CA.pem", "openssl-ca.conf");
 print "Done!\n";
 sub rm {
 	foreach my $f(@_) {

@@ -7,6 +7,7 @@ if (-e "CA.key" or -e "CA.pem") {
 	print("CA.key or CA.pem is already present. Please delete them first. \n");
   exit;
 }
+`echo changeme > PASSWORD`;
 my $C = &ask("C", "Country Name (2 letter code)");
 my $ST = &ask("ST", "State or Province Name (full anme)");
 my $L = &ask("L", "Locality Name (eg, city)");
@@ -17,7 +18,10 @@ my $EMAIL = &ask("EMAIL", "Email Address");
 &write(C=>$C, ST=>$ST, L=>$L, O=>$O, OU=>$OU, CN=>$CN, EMAIL=>$EMAIL);
 system("openssl", "genrsa", "-out", "CA.key", "4096");
 system("openssl", "req", "-subj", "/C=$C/ST=$ST/L=$L/O=$O/OU=$OU/CN=$CN","-x509", "-new", "-nodes", "-key", "CA.key", "-sha512", "-days", "7300", "-out", "CA.pem");
-
+system("keytool", "-import", "-trustcacerts", "-keystore", "truststore.p12", "-storepass", "changeme", 
+	"-alias", "CA-with-name-$CN", "-file", "CA.pem", "-noprompt", "-storetype", "pkcs12");
+system("keytool", "-import", "-trustcacerts", "-keystore", "truststore.jks", "-storepass", "changeme", 
+	"-alias", "CA-with-name-$CN", "-file", "CA.pem", "-noprompt", "-storetype", "jks");
 &apply_template();
 # Country Name (2 letter code) []:aa
 # State or Province Name (full name) []:aa

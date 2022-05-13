@@ -7,3 +7,6 @@ certs/
 SETTINGS
 CERT_SETTINGS
 openssl-ca.conf
+PASSWORD
+truststore.jks
+truststore.p12
