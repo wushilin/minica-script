@@ -39,6 +39,7 @@ system("keytool", "-import", "-trustcacerts", "-keystore", "truststore.p12", "-s
 	"-alias", "CA-with-name-$CN", "-file", "CA.pem", "-noprompt", "-storetype", "pkcs12");
 system("keytool", "-import", "-trustcacerts", "-keystore", "truststore.jks", "-storepass", "$storepass", 
 	"-alias", "CA-with-name-$CN", "-file", "CA.pem", "-noprompt", "-storetype", "jks");
+`echo $storepass > truststore.password`;
 &apply_template();
 # Country Name (2 letter code) []:aa
 # State or Province Name (full name) []:aa

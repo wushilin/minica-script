@@ -10,3 +10,4 @@ openssl-ca.conf
 PASSWORD
 truststore.jks
 truststore.p12
+*.password

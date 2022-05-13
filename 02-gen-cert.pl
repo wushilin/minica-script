@@ -152,9 +152,10 @@ mkdir "$outdir/";
 &notice("Signing certificate ($outdir/$CN.csr => $outdir/$CN.pem)\n");
 `openssl ca -config openssl-ca.conf -days $DAYS -batch -policy signing_policy -extensions signing_req -out $outdir/$CN.pem -infiles $outdir/$CN.csr`;
 &notice("Generating pkcs12 keystore ($outdir/$CN.pem => $outdir/$CN.p12)\n");
-`openssl pkcs12 -export -inkey $outdir/$CN.key -in $outdir/$CN.pem -out $outdir/$CN.p12 -password pass:changeme`;
+`openssl pkcs12 -export -inkey $outdir/$CN.key -in $outdir/$CN.pem -out $outdir/$CN.p12 -password pass:$storepass`;
 &notice("Converting pkcs12 keystore to JKS keystore ($outdir/$CN.p12 => $outdir/$CN.jks)\n");
-`keytool -importkeystore -srcstorepass changeme -srckeystore $outdir/$CN.p12 -srcstoretype pkcs12  -destkeystore $outdir/$CN.jks -deststoretype jks -deststorepass changeme`;
+`keytool -importkeystore -srcstorepass $storepass -srckeystore $outdir/$CN.p12 -srcstoretype pkcs12  -destkeystore $outdir/$CN.jks -deststoretype jks -deststorepass $storepass`;
+`echo "$storepass" > $outdir/$CN.password`;
 &notice("Done! Please check " . "$outdir/$CN.p12" . ", " . "$outdir/$CN.jks" 
   . ", " . "$outdir/$CN.key" . ", " . "$outdir/$CN.csr" . ", " . "$outdir/$CN.pem" . "!\n");
 
