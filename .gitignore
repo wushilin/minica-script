@@ -4,3 +4,6 @@ index.txt*
 serial.txt*
 issued/
 certs/
+SETTINGS
+CERT_SETTINGS
+openssl-ca.conf
