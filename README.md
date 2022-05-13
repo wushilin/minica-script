@@ -86,10 +86,10 @@ That's it! Everything (Country Code etc) follows CA. If you are not happy about 
 ## CA Key file: ./CA.key
 ## CA Trust Store in PKCS12 format: ./truststore.p12
 ## CA Trust Store in JKS format: ./truststore.jks
-## Issued certs: ./issued/<commonName>.pem
-## Issued certs key: ./issued/<commonName>.key
-## Issued certs keystore: ./issued/<commonName>.p12, <commonName>.jks
-## Issued certs keystore password: ./issued/<commonName>.password
+## Issued certs: ./issued/cert-commonName.pem
+## Issued certs key: ./issued/cert-commonName.key
+## Issued certs keystore: ./issued/cert-commonName.p12, cert-commonName.jks
+## Issued certs keystore password: ./issued/cert-commonName.password
 
 # Cleaning up (deletes everything)
 ```
