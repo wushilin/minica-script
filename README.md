@@ -6,6 +6,9 @@ You can issue cert with a single command.
 # Creating CA
 ```
 $ perl 01-gen-ca.pl 
+```
+Sample Output
+```
 Please enter Country Name (2 letter code) (C):SG
 Please enter State or Province Name (full anme) (ST):Singapore
 Please enter Locality Name (eg, city) (L):Singapore
@@ -23,6 +26,9 @@ The keys are not protected for simplicity.
 # Creating cert
 ```
 $ perl 02-gen-cert.pl commonCert host1.abc.com host2.abc.com host3.abc.com 127.0.0.1 172.20.1.1 172.20.1.2 localhost
+```
+Sample Output:
+```
 Create certs with following settings:
 Hosts: commonCert host1.abc.com host2.abc.com host3.abc.com localhost
 IPs: 127.0.0.1 172.20.1.1 172.20.1.2
