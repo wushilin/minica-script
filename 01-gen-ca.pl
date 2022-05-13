@@ -7,7 +7,24 @@ if (-e "CA.key" or -e "CA.pem") {
 	print("CA.key or CA.pem is already present. Please delete them first. \n");
   exit;
 }
-`echo changeme > PASSWORD`;
+
+my $storepass = "changeme";
+if(not -e "PASSWORD") {
+  `echo $storepass > PASSWORD`;
+  print("Using default store pass [changeme]\n");
+  print("If you want to customize keystore password, cancel now, and edit PASSWORD file.\n");
+} else {
+	$storepass = `cat PASSWORD`;
+	chomp $storepass;
+  if(length($storepass) > 30) {
+    $storepass = substr($storepass, 0, 30);
+  }
+  if(length($storepass) < 8) {
+    print("PASSWORD file content is too short.\n");
+		exit;
+  }
+  print("Loaded store pass [$storepass] from PASSWORD file\n");
+}
 my $C = &ask("C", "Country Name (2 letter code)");
 my $ST = &ask("ST", "State or Province Name (full anme)");
 my $L = &ask("L", "Locality Name (eg, city)");
@@ -18,9 +35,9 @@ my $EMAIL = &ask("EMAIL", "Email Address");
 &write(C=>$C, ST=>$ST, L=>$L, O=>$O, OU=>$OU, CN=>$CN, EMAIL=>$EMAIL);
 system("openssl", "genrsa", "-out", "CA.key", "4096");
 system("openssl", "req", "-subj", "/C=$C/ST=$ST/L=$L/O=$O/OU=$OU/CN=$CN","-x509", "-new", "-nodes", "-key", "CA.key", "-sha512", "-days", "7300", "-out", "CA.pem");
-system("keytool", "-import", "-trustcacerts", "-keystore", "truststore.p12", "-storepass", "changeme", 
+system("keytool", "-import", "-trustcacerts", "-keystore", "truststore.p12", "-storepass", "$storepass", 
 	"-alias", "CA-with-name-$CN", "-file", "CA.pem", "-noprompt", "-storetype", "pkcs12");
-system("keytool", "-import", "-trustcacerts", "-keystore", "truststore.jks", "-storepass", "changeme", 
+system("keytool", "-import", "-trustcacerts", "-keystore", "truststore.jks", "-storepass", "$storepass", 
 	"-alias", "CA-with-name-$CN", "-file", "CA.pem", "-noprompt", "-storetype", "jks");
 &apply_template();
 # Country Name (2 letter code) []:aa

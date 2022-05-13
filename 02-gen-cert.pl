@@ -8,6 +8,21 @@ if(not -e "serial.txt") {
   `echo "01" > serial.txt`;
 }
 
+my $storepass = "changeme";
+if(-f "PASSWORD") {
+	$storepass = `cat PASSWORD`;
+  chomp $storepass;
+  if(length($storepass) > 30) {
+    $storepass = substr($storepass, 0, 30);
+  }
+  if(length($storepass) < 8) {
+    print("PASSWORD file content is too short.\n");
+		exit;
+  }
+  print("Using store pass [$storepass] from PASSWORD file\n");
+} else {
+	print("Using default store pass [changeme]\n");
+}
 if(not -e "index.txt") {
   `touch index.txt`;
 }
