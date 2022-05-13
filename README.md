@@ -39,7 +39,6 @@ $ perl 02-gen-cert.pl <commonName> <fqdn1> ... <fqdnN> <ipAddress1> ... <ipAddre
 ```
 Cert, Key, CSR, JKS keystore, JKS TrustStore, PKCS keystore will be all generated.
 
-## Passwords for keystores: changeme
 
 Sample Output:
 ```
@@ -81,6 +80,16 @@ The JKS keystore uses a proprietary format. It is recommended to migrate to PKCS
 [Notice] >>> Done! Please check issued/commonCert.p12, issued/commonCert.jks, issued/commonCert.key, issued/commonCert.csr, issued/commonCert.pem!
 ```
 That's it! Everything (Country Code etc) follows CA. If you are not happy about it, create a CERT_SETTINGS file just like SETTINGS, and put your customized parameter in!
+
+# Getting artifacts for deployment
+## CA Cert file: ./CA.pem
+## CA Key file: ./CA.key
+## CA Trust Store in PKCS12 format: ./truststore.p12
+## CA Trust Store in JKS format: ./truststore.jks
+## Issued certs: ./issued/<commonName>.pem
+## Issued certs key: ./issued/<commonName>.key
+## Issued certs keystore: ./issued/<commonName>.p12, <commonName>.jks
+## Issued certs keystore password: ./issued/<commonName>.password
 
 # Cleaning up (deletes everything)
 ```
