@@ -1,0 +1,6 @@
+CA.pem
+CA.key
+index.txt*
+serial.txt*
+issued/
+certs/
