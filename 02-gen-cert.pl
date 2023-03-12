@@ -1,5 +1,6 @@
 #!/usr/bin/env perl
 
+my $MAX_PASSWORD_LENGTH=200;
 if(@ARGV < 1) {
   print "Usage: " . __FILE__ . " <common name> <dns.1> <dns.2>...<dns.n> <ip.1> <ip.2> ... <ip.n>\n";
   exit 1;
@@ -12,8 +13,8 @@ my $storepass = "changeme";
 if(-f "PASSWORD") {
 	$storepass = `cat PASSWORD`;
   chomp $storepass;
-  if(length($storepass) > 30) {
-    $storepass = substr($storepass, 0, 30);
+  if(length($storepass) > $MAX_PASSWORD_LENGTH) {
+    $storepass = substr($storepass, 0, $MAX_PASSWORD_LENGTH);
   }
   if(length($storepass) < 8) {
     print("PASSWORD file content is too short.\n");

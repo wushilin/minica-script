@@ -2,7 +2,7 @@
 
 # openssl genrsa -out CA.key 4096
 # openssl req -x509 -new -nodes -key CA.key -sha512 -days 7300 -out CA.pem
-
+my $MAX_PASSWORD_LENGTH = 200;
 if (-e "CA.key" or -e "CA.pem") {
 	print("CA.key or CA.pem is already present. Please delete them first. \n");
   exit;
@@ -16,8 +16,8 @@ if(not -e "PASSWORD") {
 } else {
 	$storepass = `cat PASSWORD`;
 	chomp $storepass;
-  if(length($storepass) > 30) {
-    $storepass = substr($storepass, 0, 30);
+  if(length($storepass) > $MAX_PASSWORD_LENGTH) {
+    $storepass = substr($storepass, 0, $MAX_PASSWORD_LENGTH);
   }
   if(length($storepass) < 8) {
     print("PASSWORD file content is too short.\n");
